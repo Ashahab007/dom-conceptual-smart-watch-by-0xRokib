@@ -23,3 +23,16 @@ for (let i = 0; i < ringButton.length; i++) {
   });
 }
 // alert();
+
+function selectWristSize(size) {
+  const sizes = ["S", "M", "L", "XL"];
+  for (let i = 0; i < sizes.length; i++) {
+    let button = document.getElementById("size-" + sizes[i]);
+    let element = sizes[i];
+    if (size === element) {
+      button.classList.add("border-purple-400");
+    } else {
+      button.classList.remove("border-purple-400");
+    }
+  }
+}
