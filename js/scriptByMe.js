@@ -47,6 +47,6 @@ for (let i = 0; i < quantityIncreDecreBtn.length; i++) {
     let convertedDisplayQuantity = parseInt(displayedQuantity.innerText);
     let currentAmount = Math.max(0, amount + convertedDisplayQuantity);
     console.log(currentAmount);
-    displayedQuantity.innerText = currentAmount;
+    displayedQuantity.innerText = currentAmount; //set the current amount to the displayedQuantity
   });
 }
