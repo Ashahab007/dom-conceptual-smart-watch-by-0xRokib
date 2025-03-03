@@ -30,9 +30,9 @@ function selectWristSize(size) {
     let button = document.getElementById("size-" + sizes[i]);
     let element = sizes[i];
     if (size === element) {
-      button.classList.add("border-purple-400");
+      button.classList.add("border-purple-600");
     } else {
-      button.classList.remove("border-purple-400");
+      button.classList.remove("border-purple-600");
     }
   }
 }
@@ -52,26 +52,67 @@ for (let i = 0; i < quantityIncreDecreBtn.length; i++) {
 }
 
 let amount = 0;
+let cartItem = [];
 document.getElementById("add-to-cart").addEventListener("click", function () {
   document.getElementById("checkout-container").classList.remove("hidden");
   let quantity = parseInt(document.getElementById("quantity").innerText);
-  let selectedColorButton = document.querySelector(
-    "button.border-purple-600.w-6"
-  );
-  let selectedColor = selectedColorButton.id.split("-")[0];
-  console.log(selectedColor);
-
-  let selectedSizeButton = document.querySelector(
-    "button.border-purple-600:not(.w-6)"
-  );
-
-  console.log(selectedSizeButton.innerText);
 
   if (quantity > 0) {
     amount = amount + quantity;
     document.getElementById("cart-count").innerText = amount;
+    let selectedColorButton = document.querySelector(
+      "button.border-purple-600.w-6"
+    );
+    let selectedColor = selectedColorButton.id.split("-")[0];
+    console.log(selectedColor);
+
+    let selectedSizeButton = document.querySelector(
+      "button.border-purple-600:not(.w-6)"
+    );
+    let selectedSize = selectedSizeButton.innerText.split(" ")[0];
+    console.log(selectedSize);
+
+    let selectedPrice = selectedSizeButton.innerText
+      .split(" ")[1]
+      .split("$")[1];
+    console.log(selectedPrice);
+
+    let selectedProductName = document.querySelector("h1").innerText;
+
+    console.log(selectedProductName);
+
+    let productImage = "../images" + selectedColor + ".png";
+    console.log(productImage);
+    const selectedProduct = {
+      productName: selectedProductName,
+      color: selectedColor,
+      size: selectedSize,
+      quantity: quantity,
+      price: selectedPrice * quantity,
+    };
+    cartItem.push(selectedProduct);
+    console.log(cartItem);
   } else {
     alert("Please add quantity");
     document.getElementById("checkout-container").classList.add("hidden");
+  }
+});
+
+document.getElementById("checkout-btn").addEventListener("click", function () {
+  document.getElementById("cart-modal").classList.remove("hidden");
+  const cartItem = document.getElementById("cart-items");
+  for (let i = 0; i < cartItem.length; i++) {
+    let item = cartItem[i];
+    let row = document.createElement("tr");
+    row.innerHTML = `
+    <td>
+     <div class="flex">
+     <img src="" alt="" srcset="">
+     <span>${item.productName}</span>
+     </div>
+    </td>
+    `;
+
+    cartItem.appendChild(row);
   }
 });
