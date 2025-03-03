@@ -5,12 +5,12 @@ console.log(ringButtonId.classList); */
 for (let i = 0; i < ringButton.length; i++) {
   const ringBtn = ringButton[i];
   const productImageId = document.getElementById("product-image");
-  console.log(ringBtn);
-  //   purple color add করার আগে এই loop এ check করে নেওয়া হছে যদি purple color থাকে তাহলে সেটা remove করে দিবে। এবং নতুন color set করে দিবে ।
+  // console.log(ringBtn);
   ringBtn.addEventListener("click", function (event) {
     let color = event.target.id.replace("-color", ""); //replacing the '-color' name from purple-color for dynamically use in productImageId.src.
     console.log(color);
 
+    //   purple color add করার আগে এই loop এ check করে নেওয়া হছে যদি purple color থাকে তাহলে সেটা remove করে দিবে। এবং নতুন color set করে দিবে ।
     for (let j = 0; j < ringButton.length; j++) {
       ringButton[j].classList.remove("border-purple-600");
       ringButton[j].classList.add("border-gray-300");
@@ -46,7 +46,32 @@ for (let i = 0; i < quantityIncreDecreBtn.length; i++) {
     let displayedQuantity = document.getElementById("quantity");
     let convertedDisplayQuantity = parseInt(displayedQuantity.innerText);
     let currentAmount = Math.max(0, amount + convertedDisplayQuantity);
-    console.log(currentAmount);
+    // console.log(currentAmount);
     displayedQuantity.innerText = currentAmount; //set the current amount to the displayedQuantity
   });
 }
+
+let amount = 0;
+document.getElementById("add-to-cart").addEventListener("click", function () {
+  document.getElementById("checkout-container").classList.remove("hidden");
+  let quantity = parseInt(document.getElementById("quantity").innerText);
+  let selectedColorButton = document.querySelector(
+    "button.border-purple-600.w-6"
+  );
+  let selectedColor = selectedColorButton.id.split("-")[0];
+  console.log(selectedColor);
+
+  let selectedSizeButton = document.querySelector(
+    "button.border-purple-600:not(.w-6)"
+  );
+
+  console.log(selectedSizeButton.innerText);
+
+  if (quantity > 0) {
+    amount = amount + quantity;
+    document.getElementById("cart-count").innerText = amount;
+  } else {
+    alert("Please add quantity");
+    document.getElementById("checkout-container").classList.add("hidden");
+  }
+});
