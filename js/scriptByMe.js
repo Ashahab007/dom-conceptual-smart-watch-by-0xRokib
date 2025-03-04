@@ -81,11 +81,14 @@ document.getElementById("add-to-cart").addEventListener("click", function () {
 
     console.log(selectedProductName);
 
-    let productImage = "../images" + selectedColor + ".png";
+    const productImageLocation = "../images/";
+
+    let productImage = productImageLocation + selectedColor + ".png";
     console.log(productImage);
     const selectedProduct = {
       productName: selectedProductName,
       color: selectedColor,
+      image: selectedColor + "png",
       size: selectedSize,
       quantity: quantity,
       price: selectedPrice * quantity,
@@ -100,19 +103,25 @@ document.getElementById("add-to-cart").addEventListener("click", function () {
 
 document.getElementById("checkout-btn").addEventListener("click", function () {
   document.getElementById("cart-modal").classList.remove("hidden");
-  const cartItem = document.getElementById("cart-items");
+  const cartContainer = document.getElementById("cart-items");
+  // const productImageId = document.getElementById("product-image");
+
   for (let i = 0; i < cartItem.length; i++) {
     let item = cartItem[i];
     let row = document.createElement("tr");
     row.innerHTML = `
     <td>
      <div class="flex">
-     <img src="" alt="" srcset="">
+    
      <span>${item.productName}</span>
      </div>
     </td>
+    <td>${item.color}</td>
+    <td>${item.size}</td>
+    <td>${item.quantity}</td>
+    <td>${item.price}</td>
     `;
 
-    cartItem.appendChild(row);
+    cartContainer.appendChild(row);
   }
 });
